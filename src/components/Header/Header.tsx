@@ -1,56 +1,20 @@
-import React, { useState } from "react";
-import {Avatar, Dropdown, Button} from "antd";
-import ChevronDownSolid from "../../assets/chevron-down-solid.svg";
-import ChevronDownWhite from "../../assets/chevron-down-white.svg";
-import Clip from "../../assets/clip.svg";
-import ContactBuss from "../../assets/contact-buss.svg";
-import ContactCheck from "../../assets/contact-check.svg";
-import ContactClose from "../../assets/contact-close.svg";
-import Message from "../../assets/message.svg";
-// import Button from "../../Button/Button.tsx";
+import { useState } from "react";
+import { Dropdown } from "antd";
+
+import {
+  ChevronDownSolid,
+  ChevronDownWhite,
+  Clip,
+  ContactBuss,
+  ContactCheck,
+  ContactClose,
+  Message,
+} from "../../assets/index.ts";
 import { headerfilters } from "../../constants/index.ts";
+import { Button } from "../index.ts";
 
 const Header = () => {
-  const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
-
-  // const filters = [
-  //   {
-  //     label: "Applied",
-  //     count: 1745,
-  //   },
-  //   {
-  //     label: "Shortlisted",
-  //     count: 453,
-  //   },
-  //   {
-  //     label: "Technical Interview",
-  //     count: 123,
-  //   },
-  //   {
-  //     label: "Opportunity Browsing",
-  //     count: 243,
-  //   },
-  //   {
-  //     label: "Video Interview I",
-  //     count: 25,
-  //   },
-  //   {
-  //     label: "Video Interview II",
-  //     count: 25,
-  //   },
-  //   {
-  //     label: "Video Interview III",
-  //     count: 25,
-  //   },
-  //   {
-  //     label: "Offer",
-  //     count: 25,
-  //   },
-  //   {
-  //     label: "Withdrawn",
-  //     count: 25,
-  //   },
-  // ];
+  const [categoryFilter, setCategoryFilter] = useState<string | null>('Opportunity Browsing');
 
   return (
     <header className="w-full py-[24px] px-[32px] grid grid-flow-col grid-cols-[30%_auto] gap-[32px]">
@@ -110,29 +74,27 @@ const Header = () => {
           trigger={["click"]}
         >
           <button className="flex justify-between items-center text-[16px]">
-            {categoryFilter || (
-              <span className="text-[#dadada]">Select a category</span>
-            )}
+            {categoryFilter}
 
-            <img src={ChevronDownSolid} alt='ChevronDownSolid icon' />
+            <img src={ChevronDownSolid} alt="ChevronDownSolid icon" />
           </button>
         </Dropdown>
 
         <div className="grid grid-flow-col gap-[8px] justify-between items-center">
           <Button>
-            <img src={Clip} alt=' Clip icon' /> 
+            <img src={Clip} alt=" Clip icon" />
           </Button>
           <Button>
-            <img src={ContactClose} alt='ContactClose icon' />
+            <img src={ContactClose} alt="ContactClose icon" />
           </Button>
           <Button>
-            <img src={ContactCheck} alt='ContactCheck icon' /> 
+            <img src={ContactCheck} alt="ContactCheck icon" />
           </Button>
           <Button>
-            <img src={ContactBuss} alt='ContactBuss icon' />
+            <img src={ContactBuss} alt="ContactBuss icon" />
           </Button>
           <Button>
-            <img src={Message} alt='Message icon' /> 
+            <img src={Message} alt="Message icon" />
           </Button>
 
           <Dropdown
@@ -160,11 +122,11 @@ const Header = () => {
             }}
           >
             <Button className="flex items-center p-0 h-full text-white">
-              <div className="px-[16px] text-[13px]">
-                Move To Video Interview I
+              <div className="px-[16px] text-[13px] text-white">
+                <span style={{color: 'whitesmoke'}} >Move To Video Interview I</span>
               </div>
               <div className="flex items-center justify-center border-l-[1px] p-[10px] h-full">
-                 <img src={ChevronDownWhite} alt='ChevronDownWhite icon' />
+                <img src={ChevronDownWhite} alt="ChevronDownWhite icon" />
               </div>
             </Button>
           </Dropdown>
@@ -172,6 +134,6 @@ const Header = () => {
       </div>
     </header>
   );
-}
+};
 
-export default Header
+export default Header;
