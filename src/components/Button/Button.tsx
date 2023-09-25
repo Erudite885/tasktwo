@@ -1,10 +1,10 @@
-import React, { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 
 type IProps = {
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
-export default function Button({ children, className, ...rest }: ButtonProps) {
+const Button = ({ children, className, ...rest }: IProps) => {
   return (
     <button
       {...rest}
@@ -14,3 +14,5 @@ export default function Button({ children, className, ...rest }: ButtonProps) {
     </button>
   );
 }
+
+export default Button
