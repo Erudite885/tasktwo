@@ -1,24 +1,28 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 import { Checkbox } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
-import {twMerge} from "tailwind-merge"
-import Candidate from "../Candidate/Candidate.tsx"; 
 
-const ResultInfo = ({
+import { Candidate } from "..";
+import { cardData } from "../../constants";
+
+interface ResultInfoProps {
+  label: string;
+  count?: number;
+  className?: string;
+  active?: boolean;
+}
+
+const ResultInfo: React.FC<ResultInfoProps> = ({
   label,
   count,
   className,
   active,
-}: {
-  label: string;
-  count: number;
-  className?: string;
-  active?: boolean;
 }) => {
   return (
     <span
       className={twMerge(
-        "flex px-[16px] border-r-[1px] cursor-pointer justify-center items-center ",
+        "flex px-[16px] border-r-[1px] border-r-[#c5cfde] cursor-pointer justify-center items-center ",
         className
       )}
     >
@@ -30,12 +34,9 @@ const ResultInfo = ({
   );
 };
 
-
-const SearchResult  = () => {
+const SearchResult: React.FC = () => {
   const [candidateSelection, setCandidateSelection] = useState<number[]>([]);
   const [checkAll, setCheckAll] = useState(false);
-
-  const candidates = new Array(10).fill("candidate");
 
   const onCandidateSelect = (index: number) => {
     let newCandidateSelection = [...candidateSelection];
@@ -48,19 +49,19 @@ const SearchResult  = () => {
     }
 
     setCandidateSelection(newCandidateSelection);
-    setCheckAll(candidates.length === newCandidateSelection.length);
+    setCheckAll(cardData.length === newCandidateSelection.length);
   };
 
   const onCheckAllChange = (e: CheckboxChangeEvent) => {
     setCandidateSelection(
-      e.target.checked ? candidates.map((_, index) => index) : []
+      e.target.checked ? cardData.map((_, index) => index) : []
     );
     setCheckAll(e.target.checked);
   };
 
   return (
     <div className="w-full bg-white rounded-[16px] py-[8px] px-[16px]">
-      <div className="w-full grid grid-flow-col gap-2 justify-between items-center grid-cols-[auto_max-content] border-b-[1px]">
+      <div className="w-full grid grid-flow-col gap-2 justify-between items-center grid-cols-[auto_max-content] border-b-[1px] border-b-[#c5cfde] ">
         <div className="grid grid-flow-col gap-[32px] py-[16px] items-center">
           <Checkbox onChange={onCheckAllChange} checked={checkAll} />
           <span className="text-primary font-[600]">247 Candidates</span>
@@ -68,29 +69,34 @@ const SearchResult  = () => {
 
         <div className="flex">
           {/* Render ResultInfo components here */}
-          <ResultInfo label='Qualified' active
-          // count={10} 
+          <ResultInfo
+            label="Qualified"
+            active
+            // count={0}
           />
-          <ResultInfo label='Task' count={10} />
-          <ResultInfo label='Disqualified' count={10} className="!border-r-0 pr-0" />
+          <ResultInfo label="Task" count={25} />
+          <ResultInfo
+            label="Disqualified"
+            count={78}
+            className="!border-r-0 pr-0"
+          />
         </div>
       </div>
 
       <div>
-        {candidates.map((_, index) => {
+        {cardData.map((data, index) => {
           return (
             <Candidate
               key={index}
               selected={candidateSelection.includes(index)}
               onSelect={() => onCandidateSelect(index)}
+              {...data}
             />
           );
         })}
       </div>
     </div>
   );
-}
+};
 
-
-export default SearchResult
-
+export default SearchResult;
